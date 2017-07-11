@@ -3,4 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--for toolbar-->
+    <color name="toolbar_bg">#001228</color>
+    <color name="toolbar_title_text">#001228</color>
+
+    <!--for TabLayout-->
+    <color name="tab_bg">#F0F0F0</color>
+    <color name="tab_text_normal">#929292</color>
+    <color name="tab_text_selected">#081122</color>
+
+
 </resources>

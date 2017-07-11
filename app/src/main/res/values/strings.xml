@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TinkLabsCodingTest</string>
+
+    <string-array name="tab_category">
+        <item>CITY GUIDE</item>
+        <item>SHOP</item>
+        <item>EAT</item>
+    </string-array>
+
 </resources>

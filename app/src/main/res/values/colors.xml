@@ -13,5 +13,12 @@
     <color name="tab_text_normal">#929292</color>
     <color name="tab_text_selected">#081122</color>
 
+    <!--for RecyclerView items-->
+    <color name="item_title">#262626</color>
+    <color name="item_description">#8C8C8C</color>
+
+    <!--for Fresco-->
+    <color name="image_placeholder">#F0F0F0</color>
+
 
 </resources>

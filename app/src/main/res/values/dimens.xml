@@ -1,0 +1,12 @@
+<resources>
+
+    <!--info item-->
+    <dimen name="item_info_margin">10dp</dimen>
+    <dimen name="item_info_image_height">120dp</dimen>
+    <dimen name="item_info_title_text_size">18sp</dimen>
+    <dimen name="item_info_description_text_size">16sp</dimen>
+
+    <!--ad item-->
+    <dimen name="item_ad_height">250dp</dimen>
+
+</resources>

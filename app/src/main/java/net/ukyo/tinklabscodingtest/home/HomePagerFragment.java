@@ -2,10 +2,11 @@ package net.ukyo.tinklabscodingtest.home;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import net.ukyo.tinklabscodingtest.R;
 
@@ -18,7 +19,6 @@ import net.ukyo.tinklabscodingtest.R;
 public class HomePagerFragment extends Fragment {
 
     private String mCategoryId; //the category id of this fragment
-    private TextView textFragmentId;
 
     public static HomePagerFragment newInstance(String categoryId) {
         HomePagerFragment homeFragment = new HomePagerFragment();
@@ -40,10 +40,20 @@ public class HomePagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_home, null);
-        textFragmentId = (TextView) view.findViewById(R.id.text_fragment_id);
-        textFragmentId.setText(mCategoryId);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        setRecyclerView(view);
 
         return view;
+    }
+
+    /**
+     * Set RecyclerView
+     */
+    private void setRecyclerView(View view) {
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
     }
 }

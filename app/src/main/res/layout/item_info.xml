@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_info_image_height"
         android:layout_weight="3"
-        fresco:actualImageScaleType="fitCenter"
+        fresco:actualImageScaleType="fitXY"
         fresco:backgroundImage="@color/image_bg"
         fresco:fadeDuration="300"
         fresco:failureImage="@drawable/img_no_image"

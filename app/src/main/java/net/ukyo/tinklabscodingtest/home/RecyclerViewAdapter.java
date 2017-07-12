@@ -1,6 +1,7 @@
 package net.ukyo.tinklabscodingtest.home;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import net.ukyo.tinklabscodingtest.R;
-import net.ukyo.tinklabscodingtest.datamodel.CategoryGson;
+import net.ukyo.tinklabscodingtest.datamodel.CategoryBean;
+
+import java.util.List;
 
 /**
  * Created by ukyo on 2017/7/11.
@@ -19,10 +22,10 @@ import net.ukyo.tinklabscodingtest.datamodel.CategoryGson;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private CategoryGson mData;
+    private List<CategoryBean> mDataList;
 
-    public RecyclerViewAdapter(CategoryGson data) {
-        this.mData = data;
+    public RecyclerViewAdapter(List<CategoryBean> dataList) {
+        this.mDataList = dataList;
     }
 
     // Provide a reference to the views for each data item
@@ -91,21 +94,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         switch (listType) {
             case 0:
                 InfoHolder infoHolder = (InfoHolder) holder;
-                infoHolder.imageInfo.setImageURI(getImageUrl(mData.results.get(position).poster_path));
-                infoHolder.textTitle.setText(mData.results.get(position).title);
-                infoHolder.textDescription.setText(mData.results.get(position).overview);
+                infoHolder.imageInfo.setImageURI(getImageUrl(mDataList.get(position).getImagePath()));
+                infoHolder.textTitle.setText(mDataList.get(position).getTitle());
+                infoHolder.textDescription.setText(mDataList.get(position).getDescription());
                 break;
 
             case 1:
                 AdHolder adHolder = (AdHolder) holder;
-                adHolder.imageAd.setImageURI(getImageUrl(mData.results.get(position).backdrop_path));
+                adHolder.imageAd.setImageURI(getImageUrl(mDataList.get(position).getImagePath()));
                 break;
         }
     }
 
     @Override
     public int getItemCount() {
-        return mData == null || mData.results.size() == 0 ? 0 : mData.results.size();
+        return mDataList == null || mDataList.size() == 0 ? 0 : mDataList.size();
     }
 
     @Override
@@ -122,9 +125,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return viewType;
     }
 
+    /**
+     * get complete image path
+     *
+     * @param urlFromApi
+     * @return
+     */
     private String getImageUrl(String urlFromApi) {
         String prefix = "https://image.tmdb.org/t/p/w780";
-        String urlArray = urlFromApi.substring(0, urlFromApi.length());
+        String urlArray = "";
+
+        if (!TextUtils.isEmpty(urlFromApi)) {
+            urlArray = urlFromApi.substring(0, urlFromApi.length());
+        }
+
         return prefix + urlArray;
     }
 }

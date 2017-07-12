@@ -36,9 +36,10 @@ public class CategoryApi {
     }
 
     //api execute
-    public void load() {
+    public void load(int page) {
 
-        StringRequest request = new CustomStringRequest(REQUEST_METHOD, API_URL, null,
+        StringRequest request = new CustomStringRequest(REQUEST_METHOD,
+                API_URL + "&page=" + String.valueOf(page), null,
                 new ResponseListener() {
                     @Override
                     public void onResponse(String str) {

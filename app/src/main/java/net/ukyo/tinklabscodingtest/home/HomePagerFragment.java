@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.ukyo.tinklabscodingtest.R;
+import net.ukyo.tinklabscodingtest.api.ApiCallback;
+import net.ukyo.tinklabscodingtest.api.CategoryApi;
+import net.ukyo.tinklabscodingtest.utils.ViewUtility;
 
 /**
  * Created by ukyo on 2017/7/11.
@@ -16,9 +19,14 @@ import net.ukyo.tinklabscodingtest.R;
  * PagerFragment displayed with ViewPager in HomeActivity
  */
 
-public class HomePagerFragment extends Fragment {
+public class HomePagerFragment extends Fragment implements ApiCallback {
 
-    private String mCategoryId; //the category id of this fragment
+    private RecyclerView mRecyclerView;
+    private RecyclerViewAdapter mAdapter;
+    private CategoryApi categoryApi;
+
+    //category id of this fragment(if fragment need to load different category id in the future)
+    private String mCategoryId;
 
     public static HomePagerFragment newInstance(String categoryId) {
         HomePagerFragment homeFragment = new HomePagerFragment();
@@ -41,19 +49,34 @@ public class HomePagerFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        setRecyclerView(view);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        loadApi();
 
         return view;
     }
 
-    /**
-     * Set RecyclerView
-     */
-    private void setRecyclerView(View view) {
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter();
+    private void loadApi() {
+        categoryApi = new CategoryApi(getActivity(), this);
+        categoryApi.load();
+    }
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter);
+    @Override
+    public void showMsg(String msg) {
+        ViewUtility.showToast(getActivity(), msg);
+    }
+
+    @Override
+    public void showDialog(String title, String msg) {
+
+    }
+
+    @Override
+    public void loadComplete() {
+        if (getActivity() != null) {
+            mAdapter = new RecyclerViewAdapter(categoryApi.getCategoryGson());
+            mRecyclerView.setAdapter(mAdapter);
+        }
     }
 }

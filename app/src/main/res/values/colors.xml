@@ -19,6 +19,6 @@
 
     <!--for Fresco-->
     <color name="image_placeholder">#F0F0F0</color>
-
+    <color name="image_bg">#ACACAC</color>
 
 </resources>

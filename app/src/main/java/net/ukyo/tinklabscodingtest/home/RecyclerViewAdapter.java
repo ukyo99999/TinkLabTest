@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import net.ukyo.tinklabscodingtest.R;
+import net.ukyo.tinklabscodingtest.datamodel.CategoryGson;
 
 /**
  * Created by ukyo on 2017/7/11.
@@ -18,14 +19,10 @@ import net.ukyo.tinklabscodingtest.R;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
+    private CategoryGson mData;
 
-    //set fake data
-    private static final String INFO_IMAGE_URL = "https://www.handy.travel/images/products-smart-dock/Product_SmartDock_Feature_900x600.jpg";
-    private static final String AD_IMAGE_URL = "https://www.handy.travel/images/products-t1/product-t-1-soft-feature-1-guest-engagement-464-x-309.png";
-    private static final int ITEM_COUNT = 10;
-
-    public RecyclerViewAdapter() {
-
+    public RecyclerViewAdapter(CategoryGson data) {
+        this.mData = data;
     }
 
     // Provide a reference to the views for each data item
@@ -94,23 +91,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         switch (listType) {
             case 0:
                 InfoHolder infoHolder = (InfoHolder) holder;
-                infoHolder.imageInfo.setImageURI(INFO_IMAGE_URL);
-                infoHolder.textTitle.setText("Title"); //add fake data
-                infoHolder.textDescription.setText("Description"); //add fake data
-
+                infoHolder.imageInfo.setImageURI(getImageUrl(mData.results.get(position).poster_path));
+                infoHolder.textTitle.setText(mData.results.get(position).title);
+                infoHolder.textDescription.setText(mData.results.get(position).overview);
                 break;
 
             case 1:
                 AdHolder adHolder = (AdHolder) holder;
-                adHolder.imageAd.setImageURI(AD_IMAGE_URL);
+                adHolder.imageAd.setImageURI(getImageUrl(mData.results.get(position).backdrop_path));
                 break;
         }
-
     }
 
     @Override
     public int getItemCount() {
-        return ITEM_COUNT;
+        return mData == null || mData.results.size() == 0 ? 0 : mData.results.size();
     }
 
     @Override
@@ -125,5 +120,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         return viewType;
+    }
+
+    private String getImageUrl(String urlFromApi) {
+        String prefix = "https://image.tmdb.org/t/p/w780";
+        String urlArray = urlFromApi.substring(0, urlFromApi.length());
+        return prefix + urlArray;
     }
 }

@@ -7,4 +7,12 @@
         <item>EAT</item>
     </string-array>
 
+    <!--for volley-->
+    <string name="volley_timeout">Connection timeout.</string>
+    <string name="volley_no_connection">No network connection,please connect internet first.</string>
+    <string name="volley_auth_failure">Authentication failure.</string>
+    <string name="volley_server_error">Server error.</string>
+    <string name="volley_network_error">Internet connection failure, try again later.</string>
+    <string name="volley_parse_error">Data parse error.</string>
+
 </resources>
